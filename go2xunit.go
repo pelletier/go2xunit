@@ -106,7 +106,9 @@ func parseOutput(rd io.Reader) ([]*Test, error) {
 		case line == "FAIL":
 			// Handle the edge case of the last test failing: the
 			// following line will be "FAIL", so we just stop there.
-			tests = append(tests, test)
+			if test != nil {
+				tests = append(tests, test)
+			}
 			test = nil
 		default:
 			if test != nil { // test != nil marks we're in the middle of a test
